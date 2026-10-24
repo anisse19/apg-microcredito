@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Recuperar acesso | APG Microcrédito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/apg.css">
+<script src="/assets/comum.js" defer></script>
+<script src="/assets/conta-acesso.js" defer></script>
+</head>
+<body data-pagina="recuperar">
+<header class="topo">
+  <div class="wrap topo-linha">
+    <a href="/" class="marca" aria-label="APG Microcrédito, voltar ao site"><img src="/assets/logo.png" alt="Logótipo APG Microcrédito"></a>
+    <div class="topo-accoes"><a href="/">Voltar ao site</a></div>
+  </div>
+</header>
+<main class="acesso">
+  <div class="acesso-cartao">
+    <h1>Recuperar acesso</h1>
+    <p class="desc">Indique o telefone da sua conta. Por segurança, a APG vai contactá-lo para confirmar a sua identidade e enviar-lhe um link para definir uma nova palavra-passe.</p>
+    <form id="formulario" novalidate data-publico="1">
+      <div class="campo">
+        <label for="telefone">Telefone</label>
+        <input id="telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="8x xxx xxxx">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Pedir recuperação</button>
+    </form>
+    <div id="resultado" class="aviso aviso-ok" role="status" hidden></div>
+    <div class="acesso-rodape"><a href="/conta/entrar">Voltar a entrar</a></div>
+  </div>
+</main>
+</body>
+</html>

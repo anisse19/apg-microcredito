@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Entrar | APG Microcrédito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/apg.css">
+<script src="/assets/comum.js" defer></script>
+<script src="/assets/conta-acesso.js" defer></script>
+</head>
+<body data-pagina="entrar">
+<header class="topo">
+  <div class="wrap topo-linha">
+    <a href="/" class="marca" aria-label="APG Microcrédito, voltar ao site"><img src="/assets/logo.png" alt="Logótipo APG Microcrédito"></a>
+    <div class="topo-accoes"><a href="/">Voltar ao site</a></div>
+  </div>
+</header>
+<main class="acesso">
+  <div class="acesso-cartao">
+    <h1>Entrar</h1>
+    <p class="desc">Aceda à sua área pessoal APG.</p>
+    <form id="formulario" novalidate data-publico="1">
+      <div class="campo">
+        <label for="identificador">Telefone ou email</label>
+        <input id="identificador" name="identificador" autocomplete="username" required>
+      </div>
+      <div class="campo">
+        <label for="palavraPasse">Palavra-passe</label>
+        <input id="palavraPasse" name="palavraPasse" type="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+    </form>
+    <div class="acesso-rodape">
+      <a href="/conta/recuperar">Esqueceu-se da palavra-passe?</a>
+      <span>Ainda não tem conta? <a href="/conta/registar">Criar conta</a></span>
+    </div>
+  </div>
+</main>
+</body>
+</html>

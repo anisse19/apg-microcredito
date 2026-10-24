@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Administração | APG Microcrédito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/apg.css">
+<script src="/assets/comum.js" defer></script>
+<script src="/assets/admin.js" defer></script>
+</head>
+<body>
+<header class="topo">
+  <div class="wrap topo-linha">
+    <a href="/" class="marca" aria-label="APG Microcrédito, voltar ao site"><img src="/assets/logo.png" alt="Logótipo APG Microcrédito"><span>Administração</span></a>
+    <div class="topo-accoes">
+      <span class="quem" id="quem"></span>
+      <button type="button" class="btn btn-ghost btn-pequeno" id="sair" hidden>Sair</button>
+    </div>
+  </div>
+</header>
+
+<main class="pagina">
+  <div class="wrap">
+    <p class="carregar" id="carregar">A verificar a sessão…</p>
+
+    <div class="acesso" id="entrada" hidden>
+      <div class="acesso-cartao">
+        <h1>Administração APG</h1>
+        <p class="desc">Acesso reservado a utilizadores autorizados.</p>
+        <div id="semPermissao" class="aviso aviso-atencao" hidden>A sessão actual não tem permissões administrativas. Entre com uma conta de administrador.</div>
+        <form id="fEntrar" novalidate data-publico="1">
+          <div class="campo"><label for="aId">Telefone ou email</label><input id="aId" name="identificador" autocomplete="username" required></div>
+          <div class="campo"><label for="aPp">Palavra-passe</label><input id="aPp" name="palavraPasse" type="password" autocomplete="current-password" required></div>
+          <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="app" hidden>
+      <nav class="separadores" role="tablist" aria-label="Secções da administração">
+        <button type="button" role="tab" data-sep="resumo">Resumo</button>
+        <button type="button" role="tab" data-sep="pedidos">Pedidos<span class="contador" id="cPedidos" hidden></span></button>
+        <button type="button" role="tab" data-sep="clientes">Clientes</button>
+        <button type="button" role="tab" data-sep="creditos">Créditos</button>
+        <button type="button" role="tab" data-sep="recuperacoes">Recuperação de acesso<span class="contador" id="cRecuperacoes" hidden></span></button>
+        <button type="button" role="tab" data-sep="configuracoes">Configurações</button>
+        <button type="button" role="tab" data-sep="auditoria">Auditoria</button>
+      </nav>
+
+      <section data-painel="resumo" role="tabpanel">
+        <div class="indicadores" id="resumoIndicadores"></div>
+        <div class="cartao"><h2>Pedidos por estado</h2><div id="resumoEstados"></div></div>
+        <div class="cartao"><h2>Site público — últimos 7 dias</h2><div id="resumoSite"></div></div>
+      </section>
+
+      <section data-painel="pedidos" role="tabpanel" hidden>
+        <div class="filtros">
+          <input type="search" id="pedidosQ" placeholder="Pesquisar por referência, nome ou telefone" aria-label="Pesquisar pedidos">
+          <select id="pedidosEstado" aria-label="Filtrar por estado">
+            <option value="">Todos os estados</option>
+            <option value="pendente_analise">Pendente de análise</option>
+            <option value="em_analise">Em análise</option>
+            <option value="aprovado">Aprovado</option>
+            <option value="rejeitado">Rejeitado</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+        </div>
+        <div class="cartao"><div id="pedidosLista"></div></div>
+      </section>
+
+      <section data-painel="clientes" role="tabpanel" hidden>
+        <div class="filtros">
+          <input type="search" id="clientesQ" placeholder="Pesquisar por nome, telefone, email, documento ou referência" aria-label="Pesquisar clientes">
+          <button type="button" class="btn btn-gold" id="adicionarCliente">Adicionar cliente</button>
+        </div>
+        <div class="cartao"><div id="clientesLista"></div></div>
+      </section>
+
+      <section data-painel="creditos" role="tabpanel" hidden>
+        <div class="filtros">
+          <select id="creditosEstado" aria-label="Filtrar por estado">
+            <option value="">Todos os estados</option>
+            <option value="aguarda_desembolso">Aguarda desembolso</option>
+            <option value="activo">Activo</option>
+            <option value="liquidado">Liquidado</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+        </div>
+        <div class="cartao"><div id="creditosLista"></div></div>
+      </section>
+
+      <section data-painel="recuperacoes" role="tabpanel" hidden>
+        <div class="aviso aviso-info">Antes de gerar um link de redefinição, confirme a identidade do cliente por telefone ou presencialmente. Entregue o link apenas ao próprio cliente.</div>
+        <div class="cartao"><div id="recuperacoesLista"></div></div>
+      </section>
+
+      <section data-painel="configuracoes" role="tabpanel" hidden>
+        <div class="cartao">
+          <h2>Condições do simulador e dos pedidos</h2>
+          <p class="texto-suave">Estas condições são usadas pelo simulador do site, pelo painel do cliente e na validação de todos os pedidos e aprovações.</p>
+          <form id="fConfig" novalidate>
+            <div class="campo"><label for="cfgMinimo">Valor mínimo (MT)</label><input id="cfgMinimo" name="valorMinimo" type="number" min="1" step="1" required></div>
+            <div class="campo"><label>Prazos e percentagens</label><div id="cfgPrazos"></div>
+              <button type="button" class="link-botao" id="cfgAdicionar">+ Adicionar prazo</button></div>
+            <div class="accoes"><button type="submit" class="btn btn-primary">Guardar condições</button></div>
+          </form>
+        </div>
+      </section>
+
+      <section data-painel="auditoria" role="tabpanel" hidden>
+        <div class="filtros">
+          <select id="auditoriaEntidade" aria-label="Filtrar por entidade">
+            <option value="">Todas as entidades</option>
+            <option value="pedido">Pedidos</option>
+            <option value="credito">Créditos</option>
+            <option value="cliente">Clientes</option>
+            <option value="utilizador">Contas</option>
+            <option value="config">Configurações</option>
+          </select>
+        </div>
+        <div class="cartao"><div id="auditoriaLista"></div></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<dialog id="dAdmin" class="largo" aria-labelledby="dAdminTitulo">
+  <div class="dialogo-cabeca"><h2 id="dAdminTitulo"></h2><button type="button" class="fechar" id="dAdminFechar" aria-label="Fechar">×</button></div>
+  <div class="dialogo-corpo" id="dAdminCorpo"></div>
+</dialog>
+</body>
+</html>

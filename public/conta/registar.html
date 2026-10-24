@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Criar conta | APG Microcrédito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/apg.css">
+<script src="/assets/comum.js" defer></script>
+<script src="/assets/conta-acesso.js" defer></script>
+</head>
+<body data-pagina="registar">
+<header class="topo">
+  <div class="wrap topo-linha">
+    <a href="/" class="marca" aria-label="APG Microcrédito, voltar ao site"><img src="/assets/logo.png" alt="Logótipo APG Microcrédito"></a>
+    <div class="topo-accoes"><a href="/">Voltar ao site</a></div>
+  </div>
+</header>
+<main class="acesso">
+  <div class="acesso-cartao">
+    <h1>Criar conta</h1>
+    <p class="desc">Acompanhe os seus pedidos e créditos num só lugar. Criar conta não significa aprovação de crédito: cada pedido é analisado pela APG.</p>
+    <form id="formulario" novalidate data-publico="1">
+      <div class="campo">
+        <label for="nomeCompleto">Nome completo</label>
+        <input id="nomeCompleto" name="nomeCompleto" autocomplete="name" required maxlength="120" placeholder="Nome e apelido">
+      </div>
+      <div class="campo">
+        <label for="telefone">Telefone</label>
+        <input id="telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="8x xxx xxxx">
+        <p class="ajuda">É com este número que vai entrar na sua conta.</p>
+      </div>
+      <div class="campo">
+        <label for="email">Email <span class="opcional">(opcional)</span></label>
+        <input id="email" name="email" type="email" autocomplete="email" maxlength="200">
+      </div>
+      <div class="campo">
+        <label for="palavraPasse">Palavra-passe</label>
+        <input id="palavraPasse" name="palavraPasse" type="password" autocomplete="new-password" required minlength="8" maxlength="128">
+        <p class="ajuda">Pelo menos 8 caracteres, com letras e números.</p>
+      </div>
+      <div class="campo">
+        <label for="confirmacao">Confirmar palavra-passe</label>
+        <input id="confirmacao" type="password" autocomplete="new-password" required>
+      </div>
+      <label class="campo-check">
+        <input type="checkbox" name="aceitaCondicoes">
+        <span>Compreendo que criar uma conta não significa aprovação de crédito e que os meus dados serão usados pela APG para analisar os meus pedidos.</span>
+      </label>
+      <button type="submit" class="btn btn-gold btn-block">Criar conta</button>
+    </form>
+    <div class="acesso-rodape">
+      <span>Já tem conta? <a href="/conta/entrar">Entrar</a></span>
+      <span>O seu cadastro foi feito pela APG? Peça o link de activação à APG.</span>
+    </div>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>A minha área | APG Microcrédito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/apg.css">
+<script src="/assets/comum.js" defer></script>
+<script src="/assets/painel.js" defer></script>
+</head>
+<body>
+<header class="topo">
+  <div class="wrap topo-linha">
+    <a href="/" class="marca" aria-label="APG Microcrédito, voltar ao site"><img src="/assets/logo.png" alt="Logótipo APG Microcrédito"><span>Área do cliente</span></a>
+    <div class="topo-accoes">
+      <span class="quem" id="quem"></span>
+      <button type="button" class="btn btn-ghost btn-pequeno" id="sair">Sair</button>
+    </div>
+  </div>
+</header>
+
+<main class="pagina">
+  <div class="wrap">
+    <p class="carregar" id="carregar">A carregar o seu painel…</p>
+    <div id="painel" hidden>
+      <div class="pagina-titulo">
+        <div>
+          <h1 id="saudacao">Olá</h1>
+          <p>Acompanhe aqui os seus pedidos, créditos e pagamentos.</p>
+        </div>
+        <button type="button" class="btn btn-gold" id="abrirPedido">Solicitar crédito</button>
+      </div>
+
+      <div id="alertaAtraso" class="aviso aviso-erro" role="alert" hidden></div>
+
+      <section class="indicadores" aria-label="Resumo da situação financeira">
+        <div class="indicador destaque"><div class="rotulo">Saldo pendente</div><div class="valor" id="iSaldo">—</div><div class="sub" id="iSaldoSub"></div></div>
+        <div class="indicador"><div class="rotulo">Próxima prestação</div><div class="valor" id="iProxima">—</div><div class="sub" id="iProximaSub"></div></div>
+        <div class="indicador"><div class="rotulo">Total a reembolsar</div><div class="valor" id="iTotal">—</div><div class="sub" id="iTotalSub"></div></div>
+        <div class="indicador"><div class="rotulo">Pagamentos confirmados</div><div class="valor" id="iPago">—</div><div class="sub" id="iPagoSub"></div></div>
+      </section>
+
+      <div class="colunas">
+        <div>
+          <section class="cartao" aria-labelledby="tPedidos">
+            <div class="cartao-cabeca"><h2 id="tPedidos">Pedidos de crédito</h2></div>
+            <div id="pedidos"></div>
+          </section>
+
+          <section class="cartao" aria-labelledby="tCreditos">
+            <h2 id="tCreditos">Créditos</h2>
+            <div id="creditos"></div>
+          </section>
+
+          <section class="cartao" aria-labelledby="tOperacoes">
+            <h2 id="tOperacoes">Histórico de operações</h2>
+            <ul class="linha-tempo" id="operacoes"></ul>
+          </section>
+        </div>
+
+        <div>
+          <section class="cartao" aria-labelledby="tNotificacoes">
+            <div class="cartao-cabeca">
+              <h2 id="tNotificacoes">Notificações</h2>
+              <button type="button" class="link-botao" id="marcarLidas" hidden>Marcar como lidas</button>
+            </div>
+            <div class="lista-notas" id="notificacoes"></div>
+          </section>
+
+          <section class="cartao" aria-labelledby="tPerfil">
+            <h2 id="tPerfil">O meu perfil</h2>
+            <dl class="dados" id="perfil"></dl>
+            <p class="texto-suave" id="perfilNota">Para alterar o nome, telefone ou documentos, contacte a APG.</p>
+            <div class="accoes"><button type="button" class="btn btn-ghost btn-pequeno" id="abrirPalavraPasse">Alterar palavra-passe</button></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<dialog id="dPedido" aria-labelledby="dPedidoTitulo">
+  <div class="dialogo-cabeca"><h2 id="dPedidoTitulo">Solicitar crédito</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">×</button></div>
+  <div class="dialogo-corpo">
+    <form id="fPedido" novalidate>
+      <div class="campo">
+        <label for="pValor">Quanto precisa? (MT)</label>
+        <input id="pValor" name="valor" type="number" inputmode="numeric" step="100" required>
+        <p class="ajuda" id="pValorAjuda"></p>
+      </div>
+      <div class="campo">
+        <label id="pPrazoRotulo">Prazo</label>
+        <div class="prazos" id="pPrazos" role="radiogroup" aria-labelledby="pPrazoRotulo"></div>
+      </div>
+      <div class="resumo-simulacao" id="pResumo" aria-live="polite"></div>
+      <div class="campo">
+        <label for="pFinalidade">Finalidade <span class="opcional">(opcional)</span></label>
+        <input id="pFinalidade" name="finalidade" maxlength="300" placeholder="Ex.: reforço de stock do negócio">
+      </div>
+      <div class="campo">
+        <label for="pInfo">Informações adicionais <span class="opcional">(opcional)</span></label>
+        <textarea id="pInfo" name="informacoes" maxlength="2000"></textarea>
+      </div>
+      <input type="hidden" name="chaveIdempotencia" id="pChave">
+      <p class="texto-suave">A simulação é indicativa. O pedido fica «Pendente de análise» até à decisão da APG.</p>
+      <div class="accoes"><button type="button" class="btn btn-ghost" data-fechar>Cancelar</button><button type="submit" class="btn btn-gold">Submeter pedido</button></div>
+    </form>
+    <div id="pConfirmacao" hidden>
+      <div class="aviso aviso-ok" role="status" id="pConfirmacaoTexto"></div>
+      <div class="accoes"><button type="button" class="btn btn-primary" data-fechar>Fechar</button></div>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="dDetalhe" aria-labelledby="dDetalheTitulo">
+  <div class="dialogo-cabeca"><h2 id="dDetalheTitulo">Pedido</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">×</button></div>
+  <div class="dialogo-corpo" id="dDetalheCorpo"></div>
+</dialog>
+
+<dialog id="dPalavraPasse" aria-labelledby="dPalavraPasseTitulo">
+  <div class="dialogo-cabeca"><h2 id="dPalavraPasseTitulo">Alterar palavra-passe</h2><button type="button" class="fechar" data-fechar aria-label="Fechar">×</button></div>
+  <div class="dialogo-corpo">
+    <form id="fPalavraPasse" novalidate>
+      <div class="campo"><label for="ppActual">Palavra-passe actual</label><input id="ppActual" name="actual" type="password" autocomplete="current-password" required></div>
+      <div class="campo"><label for="ppNova">Nova palavra-passe</label><input id="ppNova" name="nova" type="password" autocomplete="new-password" required><p class="ajuda">Pelo menos 8 caracteres, com letras e números.</p></div>
+      <div class="accoes"><button type="button" class="btn btn-ghost" data-fechar>Cancelar</button><button type="submit" class="btn btn-primary">Guardar</button></div>
+    </form>
+  </div>
+</dialog>
+</body>
+</html>

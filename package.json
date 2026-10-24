@@ -1,0 +1,22 @@
+{
+  "name": "apg-microcredito",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend e áreas de cliente/administração da APG Microcrédito",
+  "type": "commonjs",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "APG_BASE_DADOS=data/dev.sqlite node --watch server.js",
+    "semear-dev": "node scripts/semear-dev.js",
+    "migrar": "node scripts/migrar.js",
+    "criar-admin": "node scripts/criar-admin.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
